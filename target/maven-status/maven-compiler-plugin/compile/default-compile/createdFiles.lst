@@ -1,0 +1,15 @@
+com\handi\testCRUD\service\implementation\GenreServiceImpl.class
+com\handi\testCRUD\repository\BaseRepository.class
+com\handi\testCRUD\service\GenreService.class
+com\handi\testCRUD\service\BaseService.class
+com\handi\testCRUD\service\implementation\BukuServiceImpl.class
+com\handi\testCRUD\model\Buku.class
+com\handi\testCRUD\model\Genre.class
+com\handi\testCRUD\service\BukuService.class
+com\handi\testCRUD\controller\BukuController.class
+com\handi\testCRUD\model\BaseModel.class
+com\handi\testCRUD\repository\GenreRepository.class
+com\handi\testCRUD\utility\Utility.class
+com\handi\testCRUD\TestCrudApplication.class
+com\handi\testCRUD\controller\GenreController.class
+com\handi\testCRUD\repository\BukuRepository.class

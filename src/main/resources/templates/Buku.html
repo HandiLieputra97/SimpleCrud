@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	</head>
+	<body>
+		<div class="container my-5">
+	        <h3>
+	        	<span th:text="${title}"></span>
+	        </h3>
+	        <div class="card">
+	            <div class="card-body">
+	                    <form action="#" th:action="@{/create}" th:object="${buku}" method="post">
+	                        <div class="row">
+	                            <input type="hidden" id="id" th:field="*{id}">
+	                            <div class="form-group col-md-10">
+	                                <label for="isbn" class="col-form-label">ISBN</label> 
+	                                <input type="text" th:field="*{isbn}" class="form-control"
+	                                            id="isbn" placeholder="isbn" required="required"/>
+	                            </div>
+	                            <div class="form-group col-md-10">
+	                                <label for="judul" class="col-form-label">Judul</label> 
+	                                <input type="text" th:field="*{judul}" class="form-control"
+	                                            id="judul" placeholder="judul" required="required"/>
+	                            </div>
+	                            
+	                            <div class="form-group col-md-10">
+	                                <label for="penulis" class="col-form-label">Penulis</label> 
+	                                <input type="text" th:field="*{penulis}" class="form-control"
+	                                            id="penulis" placeholder="penulis" required="required"/>
+	                            </div>
+	                            <div class="form-group col-md-10">
+	                                <label for="penerbit" class="col-form-label">Penerbit</label> 
+	                                <input type="text" th:field="*{penerbit}" class="form-control"
+	                                            id="penerbit" placeholder="penerbit" required="required"/>
+	                            </div>
+	                            <div class="form-group col-md-10">
+	                                <label for="sinopsis" class="col-form-label">Sinopsis</label> 
+	                                <textarea class="form-control" rows="10" 
+	                                style="margin-top: 10px;" placeholder="Sinopsis" 
+	                                name="sinopsis" th:field="*{sinopsis}"></textarea>
+	                            </div>
+	                            <div class="form-group col-md-10">
+	                                <label for="tahunTerbit" class="col-form-label">Tahun Terbit</label> 
+	                                <input type="text" th:field="*{tahunTerbit}" class="form-control"
+	                                            id="tahunTerbit" placeholder="tahunTerbit" required="required"/>
+	                            </div>
+	                            <div class="form-group col-md-10 form-inline">
+		                            <select style="width:80%" class="form-control" th:field="*{genres}" multiple="multiple" required="required">
+									    <option th:each="genre : ${listGenre}"
+									            th:field="*{genres}"
+									            th:value="${genre.id}"
+									            th:text="${genre.nama}">Genre name</option>
+									</select>
+									<span></span>
+									<a class="btn btn-primary" th:href="@{/genre}">
+						                 <i class="fa fa-list"> Manage Genre</i>
+						             </a>
+	                            </div>
+	                            
+	                            <div class="col-md-6">
+	                                <input type="submit" class="btn btn-primary" value=" Submit ">
+	                            </div>
+	                        </div>
+	                    </form>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="card">
+	            <div class="card-body">
+                	<table id="tabelBuku" class="stripe row-border order-column cell-border">
+					    <thead>
+					        <tr>
+					            <th width="25">ID</th>
+					            <th>ISBN</th>
+					            <th>Judul</th>
+					            <th>Penerbit</th>
+					            <th>Penulis</th>
+					            <th>Sinopsis</th>
+					            <th>Tahun Terbit</th>
+					            <th>Genre</th>
+					            <th width="80">Action</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr th:each="bukus : ${bukus}">
+					            <td th:text="${bukus.id}"></td>
+					            <td th:text="${bukus.isbn}"></td>
+					            <td th:text="${bukus.judul}"></td>
+					            <td th:text="${bukus.penerbit}"></td>
+					            <td th:text="${bukus.penulis}"></td>
+					            <td th:text="${bukus.sinopsis}"></td>
+					            <td th:text="${bukus.tahunTerbit}"></td>
+					            <td>
+								    <span th:each="genre,iterator:${bukus.genres}"
+								          th:text="${genre.nama}+${iterator.index < iterator.size-1 ? ',' : ''}">
+								    </span>
+								</td>
+					            <td>
+						             <a class="btn btn-sm btn-primary" th:onclick="return confirm('Want to Update?')" th:href="@{/edit/{id}(id=${bukus.id})}">
+						                 <i class="fa fa-pencil-square-o"></i>
+						             </a> 
+						             <a class="btn btn-sm btn-primary" th:onclick="return confirm('Want to delete?')" th:href="@{/delete/{id}(id=${bukus.id})}">
+						             	<i class="fa fa-trash" aria-hidden="true"></i>
+						             </a> 
+					             </td>
+					        </tr>
+					    </tbody>
+					</table>
+                </div>
+        </div>
+		
+	<script>
+		$(document).ready( function(){
+			$("#tabelBuku").DataTable();
+		});
+	</script>
+	
+	</body>
+</html>
+
